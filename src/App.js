@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import {createHashRouter, Navigate, RouterProvider} from "react-router-dom";
+import Milestone from "./page/Milestone";
+import MilestoneDetail from "./page/MilestoneDetail";
+import ErrorPage404 from "./page/ErrorPage404";
+
+const router = createHashRouter([
+    {path: '/', element: <Navigate to={'/milestone'}/>},
+    {path: 'milestone', element: <Milestone/>},
+    {path: 'milestone/:id', element: <MilestoneDetail/>},
+    // error page of 404
+    {path: '*', element: <ErrorPage404/>},
+])
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <RouterProvider router={router}/>
+    );
 }
 
 export default App;
