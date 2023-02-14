@@ -11,7 +11,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: colors.blue,
+        primary: colors.sky['500'],
       },
     },
   },
