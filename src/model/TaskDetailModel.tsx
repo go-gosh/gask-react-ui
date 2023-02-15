@@ -4,6 +4,7 @@ export default interface TaskDetailModel {
   remark: string;
   checkedAt?: Date;
   staredAt?: Date;
+  deadline?: Date;
   createdAt: Date;
   subTasks?: TaskDetailModel[],
 }
