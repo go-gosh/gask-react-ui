@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+    @apply rounded bg-primary-dark px-6 py-3 text-xs text-secondary-light shadow outline-none transition-all hover:shadow-lg focus:outline-none active:bg-primary-light
+}
+
+.btn-plain{
+    @apply rounded px-6 py-3 text-xs text-secondary-light shadow outline-none transition-all hover:shadow-lg focus:outline-none bg-transparent text-secondary
+}
