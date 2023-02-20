@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
   CalendarIcon,
   DocumentTextIcon,
@@ -9,12 +9,12 @@ import {
   XCircleIcon,
 } from "./Icon";
 import Modal from "./Modal";
-import { IconButton } from "./IconButton";
-import { TaskCreateModel } from "../model/TaskCreateModel";
+import {IconButton} from "./IconButton";
+import {TaskCreateModel} from "../model/TaskCreateModel";
 import dayjs from "dayjs";
 
 interface TaskInputProps {
-  onSubmit?: (value: { title: string; remark: string }) => void;
+  onSubmit?: (value: TaskCreateModel) => void;
 }
 
 export function TaskInput(props: TaskInputProps) {
@@ -28,7 +28,11 @@ export function TaskInput(props: TaskInputProps) {
   const [focus, setFocus] = useState(false);
   const [tempRemark, setTempRemark] = useState(initData.remark);
   const [editRemark, setEditRemark] = useState(false);
-
+  const submit = () => {
+    props.onSubmit?.(data);
+    setData(initData);
+    setTempRemark(initData.remark);
+  }
   return (
     <div className={"w-full p-2 transition"}>
       <div
@@ -55,7 +59,7 @@ export function TaskInput(props: TaskInputProps) {
             onBlur={() => setFocus(false)}
             value={data.title}
             onChange={(event) =>
-              setData({ ...data, title: event.target.value })
+              setData({...data, title: event.target.value})
             }
             type={"text"}
             placeholder={"添加任务"}
@@ -65,33 +69,29 @@ export function TaskInput(props: TaskInputProps) {
           />
           <IconButton
             disabled={!data.title}
-            onClick={() => {
-              props.onSubmit?.(data);
-              setData(initData);
-              setTempRemark(initData.remark);
-            }}
+            onClick={submit}
             className={`h-8 w-12 grow border-l px-3 text-secondary transition-all ${
               data.title ? "opacity-100 hover:text-primary" : "opacity-50"
             }`}
           >
-            <PaperAirplaneIcon className={"w-8 stroke-[3px]"} />
+            <PaperAirplaneIcon className={"w-8 stroke-[3px]"}/>
           </IconButton>
         </div>
       </div>
       <div className={"px-4 pt-3 transition-all"}>
         <IconButton
-          onClick={() => setData({ ...data, today: !data.today })}
+          onClick={() => setData({...data, today: !data.today})}
           className={`mr-2 inline-flex h-6 w-fit items-center rounded-l-full rounded-r-full p-2 ${
             data.today
               ? "bg-primary-dark text-secondary-light hover:bg-primary hover:text-secondary"
               : "text-secondary hover:text-primary"
           }`}
         >
-          <SunIcon className={"h-5 w-5 stroke-[2px]"} />
+          <SunIcon className={"h-5 w-5 stroke-[2px]"}/>
           {data.today && (
             <>
               <p className={"text-xs"}>我的一天</p>
-              <XCircleIcon className={"h-5 w-5 stroke-[2px]"} />
+              <XCircleIcon className={"h-5 w-5 stroke-[2px]"}/>
             </>
           )}
         </IconButton>
@@ -109,7 +109,7 @@ export function TaskInput(props: TaskInputProps) {
               : "text-secondary hover:text-primary"
           }`}
         >
-          <CalendarIcon className={"h-5 w-5 stroke-[2px]"} />
+          <CalendarIcon className={"h-5 w-5 stroke-[2px]"}/>
           {data.deadline && (
             <>
               <p className={"text-xs"}>
@@ -126,7 +126,7 @@ export function TaskInput(props: TaskInputProps) {
               : "text-secondary hover:text-primary"
           }`}
         >
-          <DocumentTextIcon className={"h-5 w-5 stroke-[2px]"} />
+          <DocumentTextIcon className={"h-5 w-5 stroke-[2px]"}/>
           {data.remark && (
             <>
               <p className={"text-xs"}>备注</p>
@@ -141,7 +141,7 @@ export function TaskInput(props: TaskInputProps) {
           setTempRemark(data.remark);
         }}
         onOk={() => {
-          setData({ ...data, remark: tempRemark });
+          setData({...data, remark: tempRemark});
           setEditRemark(false);
         }}
       >
